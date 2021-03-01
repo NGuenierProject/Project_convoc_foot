@@ -1,6 +1,5 @@
 <?php
 
-Grosse merde Nathan
 
 ?>
 
