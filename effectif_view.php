@@ -6,18 +6,31 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
+<style>
+	nav{
+		background-color:#00ced1;	
+	}
+	a {
+		font-size: 20px;
+		color:white;
+		outline: none;
+		text-decoration: none;
+	}	
+	a:hover {
+		border-bottom: 1px solid;
+		background: #ffe4c4;
+	}
+</style>
 </head>
 <body>
-	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-	<fieldset>
-	<legend><b>Nouveau joueur</b></legend>
-	<label>Type licence : </label>
-	<input type="text" name="tlic" value="" size="10" maxlength="10" required="required"/><br/><br/>
-	<label>Prénom Nom : </label>
-	<input type="text" name="nom" value="" size="100" maxlength="100" required="required"/><br/><br/>
-	<input type="submit" value="Ajouter" name="ajouter" />
-	</fieldset>
-	</form>
+	<nav>
+		<a href="convocation_view.php"> Convocation </a>
+		<a href="effectif_view.php"> Effectif </a>
+		<a href="abscences_view.php"> Abscences </a>
+		<a href="matchs_view.php"> Matchs </a>
+	</nav>
+	<br/>
+	<div id="letout">
 	<?php
 		$host = $_SERVER['HTTP_HOST'];
 		$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -42,8 +55,9 @@
 			require_once("effectif_table.php");
 		} else {
 		    $_SESSION[$done] = $done;
-			if(isset($_SESSION["nb_licencie"])==null)
+			if(isset($_SESSION["nb_licencie"])==null){
 				$id=1;
+			}
 			else $id = 1+$_SESSION["nb_licencie"];
 		    $rec = $id . ";" . $tlic . ";" . $nom . "\n";
 		    if (file_exists($file)) {
@@ -52,7 +66,6 @@
 		            fwrite($id_file, $rec);
 		            flock($id_file, 3);
 		            fclose($id_file);
-		            echo "<h3>", ucwords(strtolower($nom)), " : vous êtes licencié !</h3>";
 		        } else {
 		            echo "Fichier inaccessible !";
 		        }
@@ -67,5 +80,19 @@
 		require_once("effectif_table.php");
 	}
 	?>
+	<div id="droite">
+	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+	<fieldset style="width:25%">
+	<legend><b>Nouveau joueur</b></legend>
+	<label>Type licence : </label>
+	<input type="text" name="tlic" value="" size="10" maxlength="10" required="required"/><br/><br/>
+	<label>Prénom Nom : </label>
+	<input type="text" name="nom" value="" size="20" maxlength="40" required="required"/><br/><br/>
+	<input type="submit" value="Ajouter" name="ajouter" />
+	</fieldset>
+	</form>
+	</div>
+	
+	</div>
 </body>
 </html>
