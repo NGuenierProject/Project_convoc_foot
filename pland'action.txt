@@ -1,4 +1,4 @@
-finir css pour effectif et est ce qu'il faut que j'enleve le message comme quoi quelqu'un a été ajouté ?(Evan)
+finir css pour effectif(Evan)
 Convocation(Evan ou Nathan)
 Match (Evan ou Nathan)
 Abscence faire liste joueur et gérer les abscence (enregistrer en csv ?)
