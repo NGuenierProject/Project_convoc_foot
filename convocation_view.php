@@ -22,14 +22,49 @@ td {
 	text-align: center;
 }
 #tab {
-        width:25%;
+        width:40%;
 }
 .prepa {
         text-align: center;
 }
+
+nav{
+	background-color:#00ced1;	
+}
+a {
+	font-size: 150%;
+	color:white;
+	margin-right: 2%;
+	outline: none;
+	text-decoration: none;
+}	
+a:focus {
+	background: #ffe4c4;
+}
+a:hover {
+	background: #ffe4c4;
+}
+#ici{
+	background: #4682B4;
+	font-weight: bold;
+	border: solid 1px black;
+}
+#letout #gauche {
+    	float:left;
+    	width:40%;
+}
 </style>
 </head>
 <body>
+	<nav>
+		<a id='ici'> Convocation </a>
+		<a href="effectif_view.php"> Effectif </a>
+		<a href="abscences_view.php"> Abscences </a>
+		<a href="matchs_view.php"> Matchs </a>
+	</nav>
+	<br/>
+	<div id=letout>
+	<div id=gauche>
 	<table>
 		<tr>
 			<th></th>
@@ -168,7 +203,8 @@ td {
 			<td>...</td>
 		</tr>
 	</table>
-	<br/>
+	</div>
+	<div id=droite>
 	<table id="tab">
     	<tr>
             <td colspan="5" class="prepa">EN PREPARATION</td>
@@ -180,6 +216,8 @@ td {
             <th> SUSPENDUS </th>
             <th> NON-LICENCIES/-HABILITES </th>
         </tr>
-    </table>
+   	</table>
+	</div>
+	</div>
 </body>
 </html>
