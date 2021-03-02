@@ -36,7 +36,7 @@
 </head>
 <body>
 	<nav>
-		<a href="convocation_view.php" disabled=true> Convocation </a>
+		<a href="convocation_view.php"> Convocation </a>
 		<a href="effectif_view.php"> Effectif </a>
 		<a href="abscences_view.php"> Abscences </a>
 		<a id='ici'> Matchs </a>
