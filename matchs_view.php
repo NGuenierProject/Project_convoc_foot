@@ -7,29 +7,57 @@
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
 <style type="text/css">
-    table,tr,th {
-        border: solid 1px;
-        border-collapse: collapse;
-    }
+	table,tr,th, td {
+	        border: solid 1px;
+	        border-collapse: collapse;
+	}
+	nav{
+		background-color:#00ced1;	
+	}
+	a {
+		font-size: 150%;
+		color:white;
+		margin-right: 2%;
+		outline: none;
+		text-decoration: none;
+	}	
+	a:focus {
+		background: #ffe4c4;
+	}
+	a:hover {
+		background: #ffe4c4;
+	}
+	#ici{
+		background: #4682B4;
+		font-weight: bold;
+		border: solid 1px black;
+	}
 </style>
 </head>
 <body>
+	<nav>
+		<a href="convocation_view.php" disabled=true> Convocation </a>
+		<a href="effectif_view.php"> Effectif </a>
+		<a href="abscences_view.php"> Abscences </a>
+		<a id='ici'> Matchs </a>
+	</nav>
+	<br/>
     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 	<fieldset>
 	<legend><b>Match</b></legend>
 	<label>Categorie :</label>
-	<select id="categorie">
-        <option name="categorie" value="Senior">Senior</option>
+	<select name="categorie" id="categorie">
+        <option value="Senior">Senior</option>
     </select>
     <br/>
 	<label>Compétition : </label>
 	<input type="text" name="competition" value="" size="20" maxlength="30" required="required"/>
     <br/>
 	<label>Equipe : </label>
-	<select id="equipe">
-        <option name="equipe" value="SENIORS_A">SENIORS_A</option>
-        <option name="equipe" value="SENIORS_B">SENIORS_B</option>
-        <option name="equipe" value="SENIORS_C">SENIORS_C</option>
+	<select name="equipe" id="equipe">
+        <option value="SENIORS_A">SENIORS_A</option>
+        <option value="SENIORS_B">SENIORS_B</option>
+        <option value="SENIORS_C">SENIORS_C</option>
     </select>
 	<br/>
 	<label>Club adverse : </label>
@@ -102,8 +130,7 @@
 		$deplacement = $_POST['deplacement'];
 		$terrain = $_POST['terrain'];
 		$site = $_POST['site'];
-		$done = $categorie.$competition.$equipe.$clubadv.$localiteadv.$equipeadv.$datem.$heure.$deplacement.$terrain.$terrain.$site;
-        $rec = $categorie.";".$competition.";".$equipe.";".$clubadv.";".$localiteadv.";".$equipeadv.";".$datem.";".$heure.";".$deplacement.";".$terrain.";".$terrain.";".$site . "\n";
+        $rec = $categorie.";".$competition.";".$equipe.";".$clubadv.";".$localiteadv.";".$equipeadv.";".$datem.";".$heure.";".$deplacement.";".$terrain.";".$site . "\n";
         if (file_exists($file)) {
             if ($id_file = fopen($file, "a")) {
                 flock($id_file, 2);
