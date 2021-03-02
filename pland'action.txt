@@ -1,5 +1,5 @@
 finir css pour effectif(Evan)
-Convocation(Evan ou Nathan)
+Convocation faire jquery pour caher la date(Evan ou Nathan)
 Match (Evan ou Nathan)
 Abscence faire liste joueur et gérer les abscence (enregistrer en csv ?)
 
