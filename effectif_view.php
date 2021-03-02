@@ -20,6 +20,18 @@
 		border-bottom: 1px solid;
 		background: #ffe4c4;
 	}
+	table,tr,th{
+		border: solid 1px;
+		border-collapse: collapse;
+		text-align: left;
+	}
+	th{
+		width:30%;
+	}
+	#letout #gauche {
+    		float:left;
+    		width:40%;
+	}
 </style>
 </head>
 <body>
@@ -31,6 +43,9 @@
 	</nav>
 	<br/>
 	<div id="letout">
+	<div id="gauche">    
+	<table border="1">
+	<tr><th>TYPE LICENCE</th><th>PRENOM, NOM</th></tr>		
 	<?php
 		$host = $_SERVER['HTTP_HOST'];
 		$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -41,7 +56,7 @@
 	{
 		$file = dirname(__FILE__) . "/effectif.csv";
 		if(!file_exists($file)){
-			session_unset();		
+			session_unset();
 		}
 		$nom = $_POST['nom'];
 		$nom = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "",$_POST['nom']); // suppression du contenu dans les balises <script>
@@ -80,6 +95,8 @@
 		require_once("effectif_table.php");
 	}
 	?>
+	</table>
+	</div>
 	<div id="droite">
 	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 	<fieldset style="width:25%">
@@ -92,7 +109,6 @@
 	</fieldset>
 	</form>
 	</div>
-	
 	</div>
 </body>
 </html>
