@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sommaire automatique avec jQuery</title>
+<title>Abscences</title>
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
@@ -10,11 +10,39 @@
     table,tr,th {
         border: solid 1px;
         border-collapse: collapse;}
+	nav{
+		background-color:#00ced1;	
+	}
+	a {
+		font-size: 150%;
+		color:white;
+		margin-right: 2%;
+		outline: none;
+		text-decoration: none;
+	}	
+	a:focus {
+		background: #ffe4c4;
+	}
+	a:hover {
+		background: #ffe4c4;
+	}
+	#ici{
+		background: #4682B4;
+		font-weight: bold;
+		border: solid 1px black;
+	}
 </style>
 </head>
 <body>
-    <?php
-    echo '<table><tr><th>Code : A(bsent), B(lessé),N(on-licencié), S(uspendu)</th>';
+	<nav>
+		<a href="convocation_view.php" disabled=true> Convocation </a>
+		<a href="effectif_view.php"> Effectif </a>
+		<a id='ici'> Abscences </a>
+		<a href="matchs_view.php"> Matchs </a>
+	</nav>
+	<br/>
+    	<?php
+    	echo '<table><tr><th>Code : A(bsent), B(lessé),N(on-licencié), S(uspendu)</th>';
                 $date_base='2021-08-01';
                 if($date_base > date('Y-m-d'))
                         echo '<th style="background-color: green;">';
@@ -32,6 +60,5 @@
                 }
                 echo '</tr></table>';
     ?>
-	<script defer src="sommaire-auto.js"></script>
 </body>
 </html>
