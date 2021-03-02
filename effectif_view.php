@@ -11,14 +11,22 @@
 		background-color:#00ced1;	
 	}
 	a {
-		font-size: 20px;
+		font-size: 150%;
 		color:white;
+		margin-right: 2%;
 		outline: none;
 		text-decoration: none;
 	}	
-	a:hover {
-		border-bottom: 1px solid;
+	a:focus {
 		background: #ffe4c4;
+	}
+	a:hover {
+		background: #ffe4c4;
+	}
+	#ici{
+		background: #4682B4;
+		font-weight: bold;
+		border: solid 1px black;
 	}
 	table,tr,th{
 		border: solid 1px;
@@ -36,8 +44,8 @@
 </head>
 <body>
 	<nav>
-		<a href="convocation_view.php"> Convocation </a>
-		<a href="effectif_view.php"> Effectif </a>
+		<a href="convocation_view.php" disabled=true> Convocation </a>
+		<a id='ici'> Effectif </a>
 		<a href="abscences_view.php"> Abscences </a>
 		<a href="matchs_view.php"> Matchs </a>
 	</nav>
@@ -70,11 +78,7 @@
 			require_once("effectif_table.php");
 		} else {
 		    $_SESSION[$done] = $done;
-			if(isset($_SESSION["nb_licencie"])==null){
-				$id=1;
-			}
-			else $id = 1+$_SESSION["nb_licencie"];
-		    $rec = $id . ";" . $tlic . ";" . $nom . "\n";
+		    $rec = $tlic . ";" . $nom . "\n";
 		    if (file_exists($file)) {
 		        if ($id_file = fopen($file, "a")) {
 		            flock($id_file, 2);
