@@ -3,42 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <title>Abscences</title>
+<link rel="icon" type="image/jpg" href="img/logo.jpg">
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
 <style type="text/css">
-    table,tr,th {
-        border: solid 1px;
-        border-collapse: collapse;}
+	table,tr,th,td {
+		border: solid 1px;
+		border-collapse: collapse;
+	}
+	#logo{
+		width:80px;
+	}
 	nav{
-		background-color:#00ced1;	
+		background-color:white;
+		text-align:center;
 	}
 	a {
-		font-size: 150%;
-		color:white;
-		margin-right: 2%;
+		font-size: 125%;
+		font-family: Helvetica;
+		color:black;
+		margin-left: 5%;
 		outline: none;
 		text-decoration: none;
 	}	
 	a:focus {
-		background: #ffe4c4;
+		text-decoration: #DE9E00 underline 2px;
+		color:#DE9E00;
 	}
 	a:hover {
-		background: #ffe4c4;
+		text-decoration: #DE9E00 underline 2px;
+		color: #DE9E00;
 	}
 	#ici{
-		background: #4682B4;
 		font-weight: bold;
-		border: solid 1px black;
+		text-decoration: #DE9E00 underline 2px;
+		color: #DE9E00;
+	}
+	#lg{
+		text-decoration:none;
+	}
+	#connect {
+		text-decoration:none;
+		font-size: 100%;
+		color: #DE9E00;
+	}
+	#deconnexion{
+		font-size: 100%;
 	}
 </style>
 </head>
 <body>
 	<nav>
-		<a href="convocation_view.php" disabled=true> Convocation </a>
-		<a href="effectif_view.php"> Effectif </a>
-		<a id='ici'> Abscences </a>
-		<a href="matchs_view.php"> Matchs </a>
+		<a id="lg" href="accueil_view.php">
+		<img id="logo" alt="" src="img/logo.jpg" />
+		</a>
+		<a href="accueil_view.php"> ACCUEIL </a>
+		<a href="convocation_view.php"> CONVOCATION </a>
+		<a href="effectif_view.php"> EFFECTIF </a>
+		<a id='ici' href="abscences_view.php"> ABSCENCES </a>
+		<a href="matchs_view.php"> MATCHS </a>
+		<?php
+		session_start();
+		$user = $_SESSION['username'];
+		echo "<a id='connect'>Bonjour $user</a>";
+		echo  "<a id='deconnexion' href='accueil_view.php?deconnexion=true'>Déconnexion</a>";
+		if(isset($_GET['deconnexion'])){ 
+			if($_GET['deconnexion']==true){  
+				session_unset();
+				header("location:accueil_view.php");
+			}
+		}	
+		?>
 	</nav>
 	<br/>
     	<?php
@@ -58,7 +94,9 @@
                     echo date('m-d',strtotime($date_maj)),"</th>";
                     $date_base = $date_maj;
                 }
-                echo '</tr></table>';
+                echo '</tr>';
+		require_once("abscences_table.php");
+		echo '</table>';
     ?>
 </body>
 </html>
