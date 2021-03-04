@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Convocation</title>
+<link rel="icon" type="image/jpg" href="img/logo.jpg">
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
@@ -27,40 +28,86 @@ td {
 .prepa {
         text-align: center;
 }
-
+#logo{
+	width:80px;
+}
 nav{
-	background-color:#00ced1;	
+	background-color:white;
+	text-align:center;
 }
 a {
-	font-size: 150%;
-	color:white;
-	margin-right: 2%;
+	font-size: 125%;
+	font-family: Helvetica;
+	color:black;
+	margin-left: 5%;
 	outline: none;
 	text-decoration: none;
 }	
 a:focus {
-	background: #ffe4c4;
+	text-decoration: #DE9E00 underline 2px;
+	color:#DE9E00;
 }
 a:hover {
-	background: #ffe4c4;
+	text-decoration: #DE9E00 underline 2px;
+	color: #DE9E00;
 }
 #ici{
-	background: #4682B4;
 	font-weight: bold;
-	border: solid 1px black;
+	text-decoration: #DE9E00 underline 2px;
+	color: #DE9E00;
 }
 #letout #gauche {
     	float:left;
     	width:40%;
 }
+#connexion{
+	font-weight: bold;
+	color: #DE9E00;
+	text-decoration:none;
+}
+#lg{
+	text-decoration:none;
+}
+#connect {
+	text-decoration:none;
+	font-size: 100%;
+	color: #DE9E00;
+}
+#deconnexion{
+	font-size: 100%;
+}
 </style>
 </head>
 <body>
 	<nav>
-		<a id='ici'> Convocation </a>
-		<a href="effectif_view.php"> Effectif </a>
-		<a href="abscences_view.php"> Abscences </a>
-		<a href="matchs_view.php"> Matchs </a>
+		<a id="lg" href="accueil_view.php">
+		<img id="logo" alt="" src="img/logo.jpg" />
+		</a>
+		<a href="accueil_view.php"> ACCUEIL </a>
+		<a id='ici' href="convocation_view.php"> CONVOCATION </a>
+		<?php
+		session_start();
+		if(isset($_SESSION["username"])){
+			echo"<a href='effectif_view.php'>EFFECTIF</a>";
+			echo"<a href='abscences_view.php'>ABSCENCES</a>";
+			echo"<a href='matchs_view.php'>MATCHS</a>";
+			$user = $_SESSION['username'];
+			echo "<a id='connect'>Bonjour $user</a>";
+			echo  "<a id='deconnexion' href='accueil_view.php?deconnexion=true'>Déconnexion</a>";
+		}else{
+			echo"<a>EFFECTIF</a>";
+			echo"<a>ABSCENCES</a>";
+			echo"<a>MATCHS</a>";
+			echo "<a id=\"connexion\" href=\"connexion_view.php\">S'identifier</a>";
+		}
+		
+		if(isset($_GET['deconnexion'])){ 
+			if($_GET['deconnexion']==true){  
+				session_unset();
+				header("location:accueil_view.php");
+			}
+		}
+		?>
 	</nav>
 	<br/>
 	<div id=letout>
@@ -72,15 +119,16 @@ a:hover {
 		</tr>
 		<tr>
 			<th>DATE</th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
+			<td><input type="date" id="datematch1" name="date1" value="d-m-Y" min="2021-08-01" max="2022-07-31"></td>
+			<td><input type="date" id="datematch2" name="date2" value="d-m-Y" min="2021-08-01" max="2022-07-31"></td>
+			<td><input type="date" id="datematch3" name="date3" value="d-m-Y" min="2021-08-01" max="2022-07-31"></td>
 		</tr>
 		<tr>
 			<th>COMPETITION</th>
+			<td id="comp1">...</td>
 			<td>...</td>
 			<td>...</td>
-			<td>...</td>
+			
 		</tr>
 		<tr>
 			<th>EQUIPE ADVERSE</th>
@@ -219,5 +267,6 @@ a:hover {
    	</table>
 	</div>
 	</div>
+	<script defer src="convocation.js"></script>
 </body>
 </html>
