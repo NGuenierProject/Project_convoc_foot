@@ -94,7 +94,7 @@ a:hover {
 		session_start();
 		if(isset($_SESSION["username"])){
 			echo"<a href='effectif_view.php'>EFFECTIF</a>";
-			echo"<a href='abscences_view.php'>ABSCENCES</a>";
+			echo"<a href='absences_view.php'>ABSCENCES</a>";
 			echo"<a href='matchs_view.php'>MATCHS</a>";
 			$user = $_SESSION['username'];
 			echo "<a id='connect'>Bonjour $user</a>";
