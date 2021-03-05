@@ -3,30 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Effectif</title>
+<link rel="icon" type="image/jpg" href="img/logo.jpg">
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
 <style>
+	#logo{
+		width:80px;
+	}
 	nav{
-		background-color:#00ced1;	
+		background-color:white;
+		text-align:center;
 	}
 	a {
-		font-size: 150%;
-		color:white;
-		margin-right: 2%;
+		font-size: 125%;
+		font-family: Helvetica;
+		color:black;
+		margin-left: 5%;
 		outline: none;
 		text-decoration: none;
 	}	
 	a:focus {
-		background: #ffe4c4;
+		text-decoration: #DE9E00 underline 2px;
+		color:#DE9E00;
 	}
 	a:hover {
-		background: #ffe4c4;
+		text-decoration: #DE9E00 underline 2px;
+		color: #DE9E00;
 	}
 	#ici{
-		background: #4682B4;
 		font-weight: bold;
-		border: solid 1px black;
+		text-decoration: #DE9E00 underline 2px;
+		color: #DE9E00;
 	}
 	table,tr,th{
 		border: solid 1px;
@@ -40,14 +48,42 @@
     		float:left;
     		width:40%;
 	}
+
+	#lg{
+		text-decoration:none;
+	}
+	#connect {
+		text-decoration:none;
+		font-size: 100%;
+		color: #DE9E00;
+	}
+	#deconnexion{
+		font-size: 100%;
+	}
 </style>
 </head>
 <body>
 	<nav>
-		<a href="convocation_view.php" disabled=true> Convocation </a>
-		<a id='ici'> Effectif </a>
-		<a href="abscences_view.php"> Abscences </a>
-		<a href="matchs_view.php"> Matchs </a>
+		<a id="lg" href="accueil_view.php">
+		<img id="logo" alt="" src="img/logo.jpg" />
+		</a>
+		<a href="accueil_view.php"> ACCUEIL </a>
+		<a href="convocation_view.php"> CONVOCATION </a>
+		<a id='ici' href="effectif_view.php"> EFFECTIF </a>
+		<a href="abscences_view.php"> ABSCENCES </a>
+		<a href="matchs_view.php"> MATCHS </a>
+		<?php
+		session_start();
+		$user = $_SESSION['username'];
+		echo "<a id='connect'>Bonjour $user</a>";
+		echo  "<a id='deconnexion' href='accueil_view.php?deconnexion=true'>Déconnexion</a>";
+		if(isset($_GET['deconnexion'])){ 
+			if($_GET['deconnexion']==true){  
+				session_unset();
+				header("location:accueil_view.php");
+			}
+		}	
+		?>
 	</nav>
 	<br/>
 	<div id="letout">
@@ -55,54 +91,37 @@
 	<table border="1">
 	<tr><th>TYPE LICENCE</th><th>PRENOM, NOM</th></tr>		
 	<?php
-		$host = $_SERVER['HTTP_HOST'];
-		$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-	?>
-	<?php
-	session_start();
-	if (isset($_POST['tlic']) && isset($_POST['nom']))
+	try
 	{
-		$file = dirname(__FILE__) . "/effectif.csv";
-		if(!file_exists($file)){
-			session_unset();
-		}
-		$nom = $_POST['nom'];
-		$nom = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "",$_POST['nom']); // suppression du contenu dans les balises <script>
-		$nom = strip_tags($nom); // suppression des balises HTML
-		$nom = str_replace(";", "", $nom); //suppression des ; qui perturbent l'écriture CSV
-		$nom = trim($nom); // suppression des caractères spéciaux en début et fin de $nom
-		$tlic = $_POST['tlic'];
-		$done = $tlic.$nom;
-		if (isset($_SESSION[$done])) {
-			echo "<h3>{$nom} : vous êtes déjà licencié !</h3>";
-			require_once("effectif_table.php");
-		} else {
-		    $_SESSION[$done] = $done;
-		    $rec = $tlic . ";" . $nom . "\n";
-		    if (file_exists($file)) {
-		        if ($id_file = fopen($file, "a")) {
-		            flock($id_file, 2);
-		            fwrite($id_file, $rec);
-		            flock($id_file, 3);
-		            fclose($id_file);
-		        } else {
-		            echo "Fichier inaccessible !";
-		        }
-		    } else {
-		        $id_file = fopen($file, "w");
-		        fwrite($id_file, $rec);
-		        fclose($id_file);
-		    }
-		    require_once("effectif_table.php");
-		}
-	} else {
-		require_once("effectif_table.php");
+		// On se connecte à MySQL
+		$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'etudiant', 'etudiant');
 	}
+	catch(Exception $e)
+	{
+		// En cas d'erreur, on affiche un message et on arrête tout
+	        die('Erreur : '.$e->getMessage());
+	}
+
+	// Si tout va bien, on peut continuer
+
+	// On récupère tout le contenu de la table effectif
+	$reponse = $bdd->query('SELECT * FROM effectif');
+
+	// On affiche chaque entrée une à une
+	while ($donnees = $reponse->fetch())
+	{
+		$tlic =$donnees['type_licence'];
+        	$nom = $donnees['prenom_nom'];
+		echo "<tr><td>$tlic</td><td>$nom </td></tr>";
+	}
+
+	$reponse->closeCursor(); // Termine le traitement de la requête
+
 	?>
 	</table>
 	</div>
 	<div id="droite">
-	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+	<form action="effectif.php" method="post">
 	<fieldset style="width:25%">
 	<legend><b>Nouveau joueur</b></legend>
 	<label>Type licence : </label>
