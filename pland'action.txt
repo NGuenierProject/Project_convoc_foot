@@ -1,15 +1,15 @@
-finir css pour effectif(Evan)
-Convocation faire jquery pour caher la date(Evan ou Nathan)
-Match (Evan ou Nathan)
-Abscence faire liste joueur et gérer les abscence (enregistrer en csv ?)
+Effectif fini 
+Convocation recuperer bdd absences et ajouter jouer dans convocation avec menu déroulant ?
+Match faire modifier et importer csv qui enregistre dans bdd et vérifie qu'il n'y a pas déjà un match 
+Absence gérer les abscence (enregistrer en bdd peut être pour que ce soit plus simple à récupérer pour convocations)
 faire en sorte qu'une equipe ne peut pas avoir plusieurs matchs le meme jour
 calendrier qui fonctionne seulement pour les dimanches
-est ce que les fichiers "charger" doivent ecrasé les anciennes données, les fusionner ou les deux?
+les fichiers "charger" fusionner ou supprimer si déjà match
 recuperer les données des listes déroulantes
 possiblement optimiser avec des selections sur periode et non pas date précise
 
 Faire en sorte que les boutons d'ajouts de personnes ou de match soit invisible par défaut et apparaissent lorsque l'on en a besoin en appuyant sur quelque chose par ex
 Amelioration graphique dans l'ensemble
-login ? pour administrateur (entraineur et secretaire) et les membres(joueurs)
+login pour administrateur (entraineur et secretaire) fait mais gérer le fait de voir ou modifier une page
 
 Penser à écrire le readme au fur et à mesure
