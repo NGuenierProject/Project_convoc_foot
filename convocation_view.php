@@ -23,7 +23,7 @@ td {
 	text-align: center;
 }
 #tab {
-        width:40%;
+        width:100%;
 }
 .prepa {
         text-align: center;
@@ -56,9 +56,14 @@ a:hover {
 	text-decoration: #DE9E00 underline 2px;
 	color: #DE9E00;
 }
-#letout #gauche {
+#gauche {
     	float:left;
-    	width:40%;
+    	width:50%;
+	overflow:scroll;
+}
+#droite{
+	margin-left:50%;
+	overflow:scroll;
 }
 #connexion{
 	font-weight: bold;
@@ -119,46 +124,46 @@ a:hover {
 		</tr>
 		<tr>
 			<th>DATE</th>
-			<td><input type="date" id="datematch1" name="date1" value="d-m-Y" min="2021-08-01" max="2022-07-31"></td>
-			<td><input type="date" id="datematch2" name="date2" value="d-m-Y" min="2021-08-01" max="2022-07-31"></td>
-			<td><input type="date" id="datematch3" name="date3" value="d-m-Y" min="2021-08-01" max="2022-07-31"></td>
+			<td><input type="date" id="datematch1" name="date1" value="d-m-Y" min="2021-08-01" max="2022-07-31" onchange="date1(this.value)"></td>
+			<td><input type="date" id="datematch2" name="date2" value="d-m-Y" min="2021-08-01" max="2022-07-31" onchange="date2(this.value)"></td>
+			<td><input type="date" id="datematch3" name="date3" value="d-m-Y" min="2021-08-01" max="2022-07-31" onchange="date3(this.value)"></td>
 		</tr>
 		<tr>
 			<th>COMPETITION</th>
 			<td id="comp1">...</td>
-			<td>...</td>
-			<td>...</td>
+			<td id="comp2">...</td>
+			<td id="comp3">...</td>
 			
 		</tr>
 		<tr>
 			<th>EQUIPE ADVERSE</th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
+			<td id="equ1">...</td>
+			<td id="equ2">...</td>
+			<td id="equ3">...</td>
 		</tr>
 		<tr>
 			<th>SITE</th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
+			<td id="site1">...</td>
+			<td id="site2">...</td>
+			<td id="site3">...</td>
 		</tr>
 		<tr>
 			<th>TERRAIN</th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
+			<td id="terr1">...</td>
+			<td id="terr2">...</td>
+			<td id="terr3">...</td>
 		</tr>
 		<tr>
 			<th>HEURE</th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
+			<td id="heu1">...</td>
+			<td id="heu2">...</td>
+			<td id="heu3">...</td>
 		</tr>
 		<tr>
 			<th>RDV</th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
 		</tr>
 		<tr>
 			<th>EQUIPE</th>
