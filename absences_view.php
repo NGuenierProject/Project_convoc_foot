@@ -95,8 +95,44 @@
                     $date_base = $date_maj;
                 }
                 echo '</tr>';
-		require_once("abscences_table.php");
-		echo '</table>';
+		try
+		{
+			// On se connecte à MySQL
+			$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'etudiant', 'etudiant');
+		}
+		catch(Exception $e)
+		{
+			// En cas d'erreur, on affiche un message et on arrête tout
+			die('Erreur : '.$e->getMessage());
+		}
+
+		// Si tout va bien, on peut continuer
+
+		// On récupère les noms de la table effectif
+		$reponse = $bdd->query('SELECT prenom_nom FROM effectif');
+
+		// On affiche chaque entrée une à une
+		while ($donnees = $reponse->fetch())
+		{
+			$nom = $donnees['prenom_nom'];
+			echo "<tr><td>$nom </td>";
+			$date_base='2021-08-01';
+			while ($date_base<='2022-07-31'){
+				$date_maj=date('Y-m-d',strtotime('+7 day', strtotime($date_base)));
+				echo '<td><select name="test">
+				<option value="rien" selected>...</option>
+				<option value="absent">A</option>
+				<option value="Nonlicencie">N</option>
+				<option value="Blesse">B</option>   
+				<option value="Suspendu">S</option> 
+				</select></td>';               
+                    	$date_base = $date_maj;
+			}
+			echo "</tr>";
+		}
+
+		$reponse->closeCursor(); // Termine le traitement de la requête
+
     ?>
 </body>
 </html>
