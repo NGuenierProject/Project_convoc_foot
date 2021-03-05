@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sommaire automatique avec jQuery</title>
+<title>Matchs</title>
+<link rel="icon" type="image/jpg" href="img/logo.jpg">
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
@@ -11,38 +12,72 @@
 	        border: solid 1px;
 	        border-collapse: collapse;
 	}
+	#logo{
+		width:80px;
+	}
 	nav{
-		background-color:#00ced1;	
+		background-color:white;
+		text-align:center;
 	}
 	a {
-		font-size: 150%;
-		color:white;
-		margin-right: 2%;
+		font-size: 125%;
+		font-family: Helvetica;
+		color:black;
+		margin-left: 5%;
 		outline: none;
 		text-decoration: none;
 	}	
 	a:focus {
-		background: #ffe4c4;
+		text-decoration: #DE9E00 underline 2px;
+		color:#DE9E00;
 	}
 	a:hover {
-		background: #ffe4c4;
+		text-decoration: #DE9E00 underline 2px;
+		color: #DE9E00;
 	}
 	#ici{
-		background: #4682B4;
 		font-weight: bold;
-		border: solid 1px black;
+		text-decoration: #DE9E00 underline 2px;
+		color: #DE9E00;
+	}
+	#lg{
+		text-decoration:none;
+	}
+	#connect {
+		text-decoration:none;
+		font-size: 100%;
+		color: #DE9E00;
+	}
+	#deconnexion{
+		font-size: 100%;
 	}
 </style>
 </head>
 <body>
 	<nav>
-		<a href="convocation_view.php"> Convocation </a>
-		<a href="effectif_view.php"> Effectif </a>
-		<a href="abscences_view.php"> Abscences </a>
-		<a id='ici'> Matchs </a>
+		<a id="lg" href="accueil_view.php">
+		<img id="logo" alt="" src="img/logo.jpg" />
+		</a>
+		<a href="accueil_view.php"> ACCUEIL </a>
+		<a href="convocation_view.php"> CONVOCATION </a>
+		<a href="effectif_view.php"> EFFECTIF </a>
+		<a href="abscences_view.php"> ABSCENCES </a>
+		<a id='ici' href="matchs_view.php"> MATCHS </a>
+		<?php
+		session_start();
+		$user = $_SESSION['username'];
+		echo "<a id='connect'>Bonjour $user</a>";
+		echo  "<a id='deconnexion' href='accueil_view.php?deconnexion=true'>Déconnexion</a>";
+		if(isset($_GET['deconnexion'])){ 
+			if($_GET['deconnexion']==true){  
+				session_unset();
+				header("location:accueil_view.php");
+			}
+		}	
+		?>
 	</nav>
 	<br/>
-    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+    <form action="matchs.php"  method="post">
 	<fieldset>
 	<legend><b>Match</b></legend>
 	<label>Categorie :</label>
@@ -70,7 +105,7 @@
 	<input type="text" name="equipeadv" value="" size="20" maxlength="30" required="required"/>
 	<br/>
 	<label>Date : </label>
-	<input type="date" id="datematch" name="datem" value="d-m-Y" required>
+	<input type="date" id="datematch" name="datem" value="d-m-Y" min="2021-08-01" max="2022-07-31" required>
 	<br/>
 	<label>Heure : </label>
 	<input type="time" id="heure" name="heure" min="00:00" max="23:59" required>
@@ -106,51 +141,55 @@
 		$host = $_SERVER['HTTP_HOST'];
 		$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
         ?>
-        <?php
-	session_start();
-	if (isset($_POST['categorie']) && isset($_POST['competition']) && isset($_POST['equipe']) && isset($_POST['equipeadv']) && isset($_POST['datem']) && isset($_POST['heure']) && isset($_POST['terrain']) && isset($_POST['site']))
+       <?php
+	try
 	{
-		$file = dirname(__FILE__) . "/matchs.csv";
-		if(!file_exists($file)){
-			session_unset();		
-		}
-		$categorie = $_POST['categorie'];
-		/*$nom = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "",$_POST['nom']); // suppression du contenu dans les balises <script>
-		$nom = strip_tags($nom); // suppression des balises HTML
-		$nom = str_replace(";", "", $nom); //suppression des ; qui perturbent l'écriture CSV
-		$nom = trim($nom); // suppression des caractères spéciaux en début et fin de $nom
-		*/
-		$competition = $_POST['competition'];
-		$equipe = $_POST['equipe'];
-		$clubadv = $_POST['clubadv'];
-		$localiteadv = $_POST['localiteadv'];
-		$equipeadv = $_POST['equipeadv'];
-		$datem = $_POST['datem'];
-		$heure = $_POST['heure'];
-		$deplacement = $_POST['deplacement'];
-		$terrain = $_POST['terrain'];
-		$site = $_POST['site'];
-        $rec = $categorie.";".$competition.";".$equipe.";".$clubadv.";".$localiteadv.";".$equipeadv.";".$datem.";".$heure.";".$deplacement.";".$terrain.";".$site . "\n";
-        if (file_exists($file)) {
-            if ($id_file = fopen($file, "a")) {
-                flock($id_file, 2);
-                fwrite($id_file, $rec);
-                flock($id_file, 3);
-                fclose($id_file);
-            } else {
-                echo "Fichier inaccessible !";
-            }
-        } else {
-            $id_file = fopen($file, "w");
-            fwrite($id_file, $rec);
-            fclose($id_file);
-        }
-        require_once("matchs_table.php");
-    }
-    else {
-        require_once("matchs_table.php");
-    }
-    ?>
+		// On se connecte à MySQL
+		$bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'etudiant', 'etudiant');
+	}
+	catch(Exception $e)
+	{
+		// En cas d'erreur, on affiche un message et on arrête tout
+	        die('Erreur : '.$e->getMessage());
+	}
+
+	// Si tout va bien, on peut continuer
+
+	// On récupère tout le contenu de la table effectif
+	$reponse = $bdd->query('SELECT * FROM matchs');
+
+	// On affiche chaque entrée une à une
+	while ($donnees = $reponse->fetch())
+	{
+		$categorie = $donnees["categorie"];
+		$competition = $donnees["competition"];
+		$equipe = $donnees["equipe"];
+		$clubadv = $donnees["club_adverse"];
+		$localiteadv = $donnees["localite_club_adverse"];
+		$equipeadv = $donnees["equipe_adverse"];
+		$datem = $donnees["date"];
+		$heure = $donnees["heure"];
+		$deplacement = $donnees["deplacement"];
+		$terrain = $donnees["terrain"];
+		$site = $donnees["site"];
+		echo "<tr>
+		<td>$categorie</td>
+		<td>$competition</td>
+		<td>$equipe</td>
+		<td>$clubadv</td>
+		<td>$localiteadv</td>
+		<td>$equipeadv</td>
+		<td>$datem</td>
+		<td>$heure</td>
+		<td>$deplacement</td>
+		<td>$terrain</td>
+		<td>$site</td>
+		</tr>";
+	}
+
+	$reponse->closeCursor(); // Termine le traitement de la requête
+
+	?>
 	</table>
 	
 </body>
