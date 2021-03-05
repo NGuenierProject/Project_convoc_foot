@@ -5,7 +5,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
     // connexion à la base de données
     $db_username = 'etudiant';
     $db_password = 'etudiant';
-    $db_name     = 'connexion';
+    $db_name     = 'projet';
     $db_host     = 'localhost';
     $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
            or die('could not connect to database');
