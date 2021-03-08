@@ -51,6 +51,15 @@
 	#deconnexion{
 		font-size: 100%;
 	}
+	#total #gauche {
+    		float:left;
+    		width:70%;
+		overflow:auto;
+	}
+	#droite {
+		margin-left:75%;
+		overflow:auto;
+	}
 </style>
 </head>
 <body>
@@ -77,52 +86,8 @@
 		?>
 	</nav>
 	<br/>
-    <form action="matchs.php"  method="post">
-	<fieldset>
-	<legend><b>Match</b></legend>
-	<label>Categorie :</label>
-	<select name="categorie" id="categorie">
-        <option value="Senior">Senior</option>
-    </select>
-    <br/>
-	<label>Compétition : </label>
-	<input type="text" name="competition" value="" size="20" maxlength="30" required="required"/>
-    <br/>
-	<label>Equipe : </label>
-	<select name="equipe" id="equipe">
-        <option value="SENIORS_A">SENIORS_A</option>
-        <option value="SENIORS_B">SENIORS_B</option>
-        <option value="SENIORS_C">SENIORS_C</option>
-    </select>
-	<br/>
-	<label>Club adverse : </label>
-	<input type="text" name="clubadv" value="" size="20" maxlength="30"/>
-	<br/>
-	<label>Localite club adverse : </label>
-	<input type="text" name="localiteadv" value="" size="20" maxlength="30"/>
-	<br/>
-	<label>Equipe adverse : </label>
-	<input type="text" name="equipeadv" value="" size="20" maxlength="30" required="required"/>
-	<br/>
-	<label>Date : </label>
-	<input type="date" id="datematch" name="datem" value="d-m-Y" min="2021-08-01" max="2022-07-31" required>
-	<br/>
-	<label>Heure : </label>
-	<input type="time" id="heure" name="heure" min="00:00" max="23:59" required>
-	<br/>
-	<label>Deplacement : </label>
-	<input type="text" name="deplacement" value="" size="10" maxlength="10"/>
-	<br/>
-	<label>Terrain : </label>
-	<input type="text" name="terrain" value="" size="20" maxlength="30" required="required"/>
-	<br/>
-	<label>Site : </label>
-	<input type="text" name="site" value="" size="20" maxlength="30" required="required"/>
-	<br/>
-	<input type="submit" value="Ajouter" name="ajouter" />
-	</fieldset>
-	</form>
-
+	<div id="total">
+	<div id="gauche">
 	<table>
         <tr>
             <th> CATEGORIE </th>
@@ -191,6 +156,63 @@
 
 	?>
 	</table>
-	
+	</div>
+	<div id="droite">
+	<form action="matchs.php" method="post">
+	<fieldset>
+	<legend><b>Match</b></legend>
+	<label>Categorie :</label>
+	<select name="categorie" id="categorie">
+                <option value="Senior">Senior</option>
+            </select>
+            <br/>
+            <label>Compétition : </label>
+            <input type="text" name="competition" value="" size="20" maxlength="30" required="required"/>
+            <br/>
+            <label>Equipe : </label>
+            <select name="equipe" id="equipe">
+                <option value="SENIORS_A">SENIORS_A</option>
+                <option value="SENIORS_B">SENIORS_B</option>
+                <option value="SENIORS_C">SENIORS_C</option>
+            </select>
+            <br/>
+            <label>Club adverse : </label>
+            <input type="text" name="clubadv" value="" size="20" maxlength="30"/>
+            <br/>
+            <label>Localite club adverse : </label>
+            <input type="text" name="localiteadv" value="" size="20" maxlength="30"/>
+            <br/>
+            <label>Equipe adverse : </label>
+            <input type="text" name="equipeadv" value="" size="20" maxlength="30" required="required"/>
+            <br/>
+            <label>Date : </label>
+            <input type="date" id="datematch" name="datem" value="d-m-Y" required>
+            <br/>
+            <label>Heure : </label>
+            <input type="time" id="heure" name="heure" min="00:00" max="23:59" required>
+            <br/>
+            <label>Deplacement : </label>
+            <input type="text" name="deplacement" value="" size="10" maxlength="10"/>
+            <br/>
+            <label>Terrain : </label>
+            <input type="text" name="terrain" value="" size="20" maxlength="30" required="required"/>
+            <br/>
+            <label>Site : </label>
+            <input type="text" name="site" value="" size="20" maxlength="30" required="required"/>
+            <br/>
+            <input type="submit" value="Ajouter" name="ajouter" />
+        </fieldset>
+	</form>
+	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+        <fieldset>
+        <legend><b>Ajoute d'une liste de dates</b></legend>
+        <label>Choisissez un fichier a charger : </label>
+        <input type="file" name="fichier"></input>
+        <br/>
+        <input type="submit" value="Charger" name="charger" />
+        </fieldset>
+	</form>
+	</div>
+	</div>	
 </body>
 </html>
