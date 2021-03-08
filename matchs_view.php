@@ -70,7 +70,7 @@
 		<a href="accueil_view.php"> ACCUEIL </a>
 		<a href="convocation_view.php"> CONVOCATION </a>
 		<a href="effectif_view.php"> EFFECTIF </a>
-		<a href="absences_view.php"> ABSCENCES </a>
+		<a href="absences_view.php"> ABSENCES </a>
 		<a id='ici' href="matchs_view.php"> MATCHS </a>
 		<?php
 		session_start();
