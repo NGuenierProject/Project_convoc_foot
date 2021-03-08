@@ -94,14 +94,14 @@ a:hover {
 		session_start();
 		if(isset($_SESSION["username"])){
 			echo"<a href='effectif_view.php'>EFFECTIF</a>";
-			echo"<a href='absences_view.php'>ABSCENCES</a>";
+			echo"<a href='absences_view.php'>ABSENCES</a>";
 			echo"<a href='matchs_view.php'>MATCHS</a>";
 			$user = $_SESSION['username'];
 			echo "<a id='connect'>Bonjour $user</a>";
 			echo  "<a id='deconnexion' href='accueil_view.php?deconnexion=true'>Déconnexion</a>";
 		}else{
 			echo"<a>EFFECTIF</a>";
-			echo"<a>ABSCENCES</a>";
+			echo"<a>ABSENCES</a>";
 			echo"<a>MATCHS</a>";
 			echo "<a id=\"connexion\" href=\"connexion_view.php\">S'identifier</a>";
 		}
