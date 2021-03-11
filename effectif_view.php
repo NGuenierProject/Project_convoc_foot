@@ -47,6 +47,12 @@
 	#letout #gauche {
     		float:left;
     		width:40%;
+		overflow:auto;
+	}
+	#droite {
+		margin-left:40%;
+		width:25%;
+		overflow:auto;
 	}
 
 	#lg{
@@ -122,7 +128,7 @@
 	</div>
 	<div id="droite">
 	<form action="effectif.php" method="post">
-	<fieldset style="width:25%">
+	<fieldset>
 	<legend><b>Nouveau joueur</b></legend>
 	<label>Type licence : </label>
 	<input type="text" name="tlic" value="" size="10" maxlength="10" required="required"/><br/><br/>
