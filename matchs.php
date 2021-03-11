@@ -39,6 +39,6 @@
 		header("Location:matchs_view.php");
 	}
 	catch(PDOException $e){
-		echo 'Impossible de traiter les données. Erreur : '.$e->getMessage();
+		header("Location:matchs_view.php?erreur=1");
 	}
 ?>
