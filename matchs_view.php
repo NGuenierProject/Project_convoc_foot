@@ -201,15 +201,15 @@
             <input type="text" name="site" value="" size="20" maxlength="30" required="required"/>
             <br/>
             <input type="submit" value="Ajouter" name="ajouter" />
-		<?php
-		if(isset($_GET['erreur'])){
-			$err = $_GET['erreur'];
-			if($err==1)
-			echo "<p style='color:red'>Il existe déjà un match ce jour là pour cette équipe</p>";
-		}
-		?>
+            <?php
+            if(isset($_GET['erreur'])){
+                $err = $_GET['erreur'];
+                if($err==1)
+                echo "<p style='color:red'>Il existe déjà un match ce jour là pour cette équipe</p>";
+            }
+            ?>
         </fieldset>
-	</form>
+    </form>
 	<form action="matchs_chargement.php"  method="post" enctype="multipart/form-data">
         <fieldset>
         <legend><b>Ajoute d'une liste de dates</b></legend>
@@ -217,15 +217,56 @@
         <input type="file" name="fichcsv" accept=".csv"></input>
         <br/>
         <input type="submit" value="Charger" name="charger" />
-	<?php
-	if(isset($_GET['erreur'])){
-		$err = $_GET['erreur'];
-		if($err==2){
-			echo "<p style='color:red'>Un ou plusieurs matchs ont déjà été programmé</p>";
-			echo "<p style='color:red'>Les matchs non programmés ont été ajouté</p>";
-		}
-	}
-	?>
+        <?php
+        if(isset($_GET['erreur'])){
+            $err = $_GET['erreur'];
+            if($err==2){
+                echo "<p style='color:red'>Un ou plusieurs matchs ont déjà été programmé</p>";
+                echo "<p style='color:red'>Les matchs non programmés ont été ajouté</p>";
+            }
+        }
+        ?>
+        </fieldset>
+	</form>
+	<form action="modifier_match.php" method="post">
+        <fieldset>
+        <legend><b>Modifier une rencontre</b></legend>
+        <label>Date de la rencontre a modifier : </label>
+        <input type="date" id="datematch" name="datem" value="d-m-Y" required>
+        <br/>
+        <label>Nom de l'équipe qui joue :</label>
+        <input type="text" name="nomEaM" size="20" maxlength="30" required="required"/>
+        <br/>
+        <input type="submit" value="Modifier" name="Modifier" />
+        <?php
+        if(isset($_GET['erreur'])){
+            $err = $_GET['erreur'];
+            if($err==3){
+                echo "<p style='color:red'>Le match ne peut pas etre modifier car il y a deja un match de prevu pour cette equipe a la nouvelle date</p>";
+            }
+        }
+        ?>
+        </fieldset>
+	</form>
+	</form>
+	<form action="supprimer_match.php" method="post">
+        <fieldset>
+        <legend><b>Supprimer une rencontre</b></legend>
+        <label>Date de la rencontre a supprimer : </label>
+        <input type="date" id="datematch" name="datem" value="Y-m-d" required>
+        <br/>
+        <label>Nom de l'équipe qui joue :</label>
+        <input type="text" name="nomEaM" size="20" maxlength="30" required="required"/>
+        <br/>
+        <input type="submit" value="Supprimer" name="Supprimer" />
+        <?php
+        if(isset($_GET['erreur'])){
+            $err = $_GET['erreur'];
+            if($err==4){
+                echo "<p style='color:red'>Les informations ne sont pas valides</p>";
+            }
+        }
+        ?>
         </fieldset>
 	</form>
 	</div>
