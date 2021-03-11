@@ -57,6 +57,25 @@
 		font-size: 100%;
 	}
 
+	.conteneur{
+    max-width: 95%;
+    margin: 50px auto;
+}
+.d2{
+    width: 100%;
+    padding-top: 40%;
+    background-color: #EDEDED;
+    background-size: cover;
+    animation: 10s linear 1s infinite running slidein;
+}
+
+	@keyframes slidein{
+		0%{background-image: url("img/img1.jpg");}
+		33.33%{background-image: url("img/img2.jpg");}
+		66.67%{background-image: url("img/img3.jpg");}
+		100%{background-image: url("img/img1.jpg");}
+}
+
 </style>
 </head>
 <body>
@@ -90,12 +109,9 @@
 		}
 		?>
 	</nav>
-	<br/>
-
-	<marquee scrollamount="10">
-		<img src="img/img1.jpg">
-		<img src="img/img2.jpg">
-		<img src="img/img3.jpg">
-	</marquee>	
+	<div class="conteneur">
+		<div class="d2">
+		</div>
+	</div>
 </body>
 </html>
