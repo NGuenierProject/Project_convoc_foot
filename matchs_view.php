@@ -201,15 +201,31 @@
             <input type="text" name="site" value="" size="20" maxlength="30" required="required"/>
             <br/>
             <input type="submit" value="Ajouter" name="ajouter" />
+		<?php
+		if(isset($_GET['erreur'])){
+			$err = $_GET['erreur'];
+			if($err==1)
+			echo "<p style='color:red'>Il existe déjà un match ce jour là pour cette équipe</p>";
+		}
+		?>
         </fieldset>
 	</form>
-	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+	<form action="matchs_chargement.php"  method="post" enctype="multipart/form-data">
         <fieldset>
         <legend><b>Ajoute d'une liste de dates</b></legend>
         <label>Choisissez un fichier a charger : </label>
-        <input type="file" name="fichier"></input>
+        <input type="file" name="fichcsv" accept=".csv"></input>
         <br/>
         <input type="submit" value="Charger" name="charger" />
+	<?php
+	if(isset($_GET['erreur'])){
+		$err = $_GET['erreur'];
+		if($err==2){
+			echo "<p style='color:red'>Un ou plusieurs matchs ont déjà été programmé</p>";
+			echo "<p style='color:red'>Les matchs non programmés ont été ajouté</p>";
+		}
+	}
+	?>
         </fieldset>
 	</form>
 	</div>
