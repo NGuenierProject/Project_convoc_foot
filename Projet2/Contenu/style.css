@@ -85,3 +85,28 @@ th{
 	margin-left:75%;
 	overflow:auto;
 }
+
+/*convocation*/
+
+#gauche_3 {
+    	float:left;
+    	width:50%;
+	overflow:auto;
+}
+#droite_3{
+	margin-left:50%;
+	overflow:auto;
+}
+
+.number{
+	text-align: right;
+}
+.conv{
+	text-align: center;
+}
+.prepa {
+        text-align: center;
+}
+#tab {
+        width:100%;
+}
