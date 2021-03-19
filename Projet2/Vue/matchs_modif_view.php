@@ -11,7 +11,7 @@
 	<form action="index.php?action=matchs&amp;id=5" method="post">
                     <fieldset>
                         <legend><b>Modifications de la rencontre</b></legend>
-                        <?php foreach($matchs as $match): ?>
+                        <?php foreach($matchs as $match): $compt=1;?>
                         <label>Categorie :</label>
                         <select name="categorie" id="categorie">
                             <option value="Senior">Senior</option>
@@ -63,8 +63,10 @@
                         <input type="text" name="site" value="<?= $match['site'] ?>" size="20" maxlength="30" required="required"/><br/>
                         
                         <input type="submit" value="Valider" name="modif" />
-			<?php endforeach;?>
+			<?php endforeach;
+			if(empty($compt)){?>
 			<p> Il n'existe pas de matchs à cette date pour cette équipe</p>
+			<?php }?>
                         <input type="button" onclick="document.location.href='index.php?action=matchs'" value="Annuler"/>
                     </fieldset>
                 </form>
