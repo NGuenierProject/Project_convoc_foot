@@ -99,7 +99,7 @@
 <form action="index.php?action=matchs&amp;id=2"  method="post" enctype="multipart/form-data">
         <fieldset>
         <legend><b>Ajoute d'une liste de dates</b></legend>
-        <label>Choisissez un fichier a charger : </label>
+        <label>Choisissez un fichier à charger : </label>
         <input type="file" name="fichcsv" accept=".csv"></input>
         <br/>
         <input type="submit" value="Charger" name="charger" />
@@ -108,11 +108,15 @@
 	<form action="index.php?action=matchs&amp;id=3" method="post">
         <fieldset>
         <legend><b>Modifier une rencontre</b></legend>
-        <label>Date de la rencontre a modifier : </label>
+        <label>Date de la rencontre à modifier : </label>
         <input type="date" id="datematch" name="datem" value="d-m-Y" min="2021-08-01" max="2022-07-31" required>
         <br/>
         <label>Nom de l'équipe qui joue :</label>
-        <input type="text" name="nomEaM" size="20" maxlength="30" required="required"/>
+        <select name="equipe" id="equipe">
+        	<option value="SENIORS_A">SENIORS_A</option>
+        	<option value="SENIORS_B">SENIORS_B</option>
+        	<option value="SENIORS_C">SENIORS_C</option>
+        </select>
         <br/>
         <input type="submit" value="Modifier" name="Modifier" />
         <?php
@@ -131,11 +135,15 @@
 	<form action="index.php?action=matchs&amp;id=4" method="post">
         <fieldset>
         <legend><b>Supprimer une rencontre</b></legend>
-        <label>Date de la rencontre a supprimer : </label>
+        <label>Date de la rencontre à supprimer : </label>
         <input type="date" id="datematch" name="datem" value="Y-m-d" min="2021-08-01" max="2022-07-31" required>
         <br/>
         <label>Nom de l'équipe qui joue :</label>
-        <input type="text" name="nomEaM" size="20" maxlength="30" required="required"/>
+        <select name="equipe" id="equipe">
+        	<option value="SENIORS_A">SENIORS_A</option>
+        	<option value="SENIORS_B">SENIORS_B</option>
+        	<option value="SENIORS_C">SENIORS_C</option>
+        </select>
         <br/>
         <input type="submit" value="Supprimer" name="Supprimer" />
         <?php

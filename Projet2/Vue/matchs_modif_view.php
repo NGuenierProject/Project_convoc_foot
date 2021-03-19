@@ -65,7 +65,7 @@
                         <input type="submit" value="Valider" name="modif" />
 			<?php endforeach;
 			if(empty($compt)){?>
-			<p> Il n'existe pas de matchs à cette date pour cette équipe</p>
+			<p style='color:red'>Il n'existe pas de matchs à cette date pour cette équipe</p>
 			<?php }?>
                         <input type="button" onclick="document.location.href='index.php?action=matchs'" value="Annuler"/>
                     </fieldset>

@@ -37,7 +37,7 @@ if(isset($_GET['id'])){
 	if($_GET['id']==3){
 		try{
 			$date=$_POST["datem"];
-			$nom=$_POST["nomEaM"];
+			$nom=$_POST["equipe"];
 			modifMatchs($date,$nom);
 		}
 		catch (Exception $e) {
@@ -47,7 +47,7 @@ if(isset($_GET['id'])){
 	if($_GET['id']==4){
 		try{
 			$datemodif=$_POST["datem"];
-			$equipemodif=$_POST["nomEaM"];
+			$equipemodif=$_POST["equipe"];
 			supMatchs($datemodif,$equipemodif);
 			matchs();
 		}
