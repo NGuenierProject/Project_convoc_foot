@@ -1,4 +1,9 @@
 <?php $titre = 'Effectif'; ?>
+
+<?php ob_start(); ?>
+	
+<?php $head = ob_get_clean(); ?>
+
 <?php ob_start(); ?>
 	<a href="index.php">ACCUEIL</a>
 	<a href="index.php?action=convocation">CONVOCATION</a>

@@ -1,6 +1,6 @@
 <?php
 
-require 'Modele/Modele.php';
+require_once './Modele/Modele.php';
 
 function accueil() {
 	require 'Vue/accueil_view.php';
@@ -11,12 +11,14 @@ function effectif(){
 	require 'Vue/effectif_view.php';
 }
 
-function convocation() {
+function convocation() {	
 	require'Vue/convocation_view.php';
 }
 
 function absences() {
-	$joueursAbs=getJAbsent();
+	//$joueursAbs=getJAbsent();
+	$premJ=getJprem();	
+	$motifs=getMAbsent();
 	require'Vue/absences_view.php';
 }
 

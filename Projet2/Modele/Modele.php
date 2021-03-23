@@ -15,6 +15,18 @@ function setJoueur($tlic,$nom) {
 	$sth->execute();
 }
 
+function setAbsence($nom,$date_base,$motif) {
+	$bdd = getBdd();
+	$sth = $bdd->prepare("
+	INSERT INTO absences(prenom_nom, date, motif)
+			    VALUES(:nom, :date_base,:motif)");
+	$sth->bindParam(':nom',$nom);
+	$sth->bindParam(':date_base',$date_base);
+	$sth->bindParam(':motif',$motif);
+	$sth->execute();
+}
+
+
 function getMatchs(){
 	$bdd = getBdd();
 	$match= $bdd->query('SELECT * FROM matchs');
@@ -102,9 +114,17 @@ function getJAbsent() {
     return $joueur;
 }
 
-function getMAbsent($nom,$date_base) {
+function getJprem() {
     $bdd = getBdd();
-    $matchs = $bdd->query('SELECT motif FROM absences where prenom_nom="'.$nom.'" AND date="'.$date_base.'"');
+    $joueur = $bdd->query('SELECT prenom_nom FROM effectif');
+$donnees=$joueur->fetch();
+    return $donnees;
+}
+
+
+function getMAbsent() {
+    $bdd = getBdd();
+    $matchs = $bdd->query('SELECT prenom_nom, motif FROM absences ');
     return $matchs;
 }
 
@@ -135,7 +155,41 @@ function validMatchs($modcategorie,$modcompetition,$modequipe,$modclubadv, $modl
         $matchs->execute();
 }
 
+function recupValMatchs1($date,$nom){
+	$bdd = getBdd();
+	$matchs= $bdd->query("SELECT * FROM matchs WHERE equipe='".$nom."' and date='".$date."'");
+	return $matchs;
+}
 
+function recupExempt($date){
+	$bdd = getBdd();
+	$matchs= $bdd->query("SELECT prenom_nom FROM absences WHERE date='".$date."' AND motif='...'");
+	return $matchs;
+}
+
+function recupAbsent($date){
+	$bdd = getBdd();
+	$matchs= $bdd->query("SELECT prenom_nom FROM absences WHERE date='".$date."' AND motif='A'");
+	return $matchs;
+}
+
+function recupBlesse($date){
+	$bdd = getBdd();
+	$matchs= $bdd->query("SELECT prenom_nom FROM absences WHERE date='".$date."' AND motif='B'");
+	return $matchs;
+}
+
+function recupSuspendu($date){
+	$bdd = getBdd();
+	$matchs= $bdd->query("SELECT prenom_nom FROM absences WHERE date='".$date."' AND motif='S'");
+	return $matchs;
+}
+
+function recupNonlic($date){
+	$bdd = getBdd();
+	$matchs= $bdd->query("SELECT prenom_nom FROM absences WHERE date='".$date."' AND motif='N'");
+	return $matchs;
+}
 
 // Effectue la connexion à la BDD
 // Instancie et renvoie l'objet PDO associé
@@ -143,3 +197,5 @@ function getBdd() {
     $bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'etudiant', 'etudiant', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     return $bdd;
 }
+
+

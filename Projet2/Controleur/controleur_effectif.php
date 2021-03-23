@@ -6,6 +6,13 @@ try{
 		$nom = $_POST['nom'];
 	
 		setJoueur($tlic, $nom);
+
+		$rien='...';
+		$date_base='2021-08-01';
+		while($date_base <= '2022-07-31'){
+			setAbsence($nom,$date_base,$rien);
+			$date_base = date('Y-m-d',strtotime('+7 day', strtotime($date_base)));
+		}
 	}
 	effectif();
 }

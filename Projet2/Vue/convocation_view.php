@@ -1,4 +1,9 @@
 <?php $titre = 'Convocation'; ?>
+
+<?php ob_start(); ?>
+	<script defer src="Vue/convocation.js"></script>
+<?php $head = ob_get_clean(); ?>
+
 <?php ob_start(); ?>
 	<a href="index.php">ACCUEIL</a>
 	<a id='ici' href="index.php?action=convocation">CONVOCATION</a>
@@ -17,9 +22,9 @@
 		</tr>
 		<tr>
 			<th>DATE</th>
-			<td><input type="date" id="datematch1" name="date1" value="d-m-Y" min="2021-08-01" max="2022-07-31" onchange="change(this.value)"></td>
-			<td><input type="date" id="datematch2" name="date2" value="d-m-Y" min="2021-08-01" max="2022-07-31" onchange="date2(this.value)"></td>
-			<td><input type="date" id="datematch3" name="date3" value="d-m-Y" min="2021-08-01" max="2022-07-31" onchange="date3(this.value)"></td>
+			<td><input type="date" id="datematch1" name="date1" value="d-m-Y" min="2021-08-01" max="2022-07-31" onchange="change(this.value,'SENIORS_A')"></td>
+			<td><input type="date" id="datematch2" name="date2" value="d-m-Y" min="2021-08-01" max="2022-07-31" onchange="date(this.value,'SENIORS_B')"></td>
+			<td><input type="date" id="datematch3" name="date3" value="d-m-Y" min="2021-08-01" max="2022-07-31" onchange="date(this.value,'SENIORS_C')"></td>
 		</tr>
 		<tr>
 			<th>COMPETITION</th>
@@ -67,8 +72,8 @@
 		<tr>
 			<th class='number'>1 </th>
 			<td><select id="ja1" onclick="recupjoueur(this.id)"> </select></td>
-			<td><select id="jb1"> </select></td>
-			<td><select id="jc1"> </select></td>
+			<td><select id="jb1" onclick="recupjoueur(this.id)"> </select></td>
+			<td><select id="jc1" onclick="recupjoueur(this.id)"> </select></td>
 		</tr>
 		<tr>
 			<th class='number'>2 </th>
@@ -187,7 +192,6 @@
    	</table>
 	</div>
 	</div>
-
 <?php $contenu = ob_get_clean(); ?>
 
 <?php require 'gabarit.php'; ?>

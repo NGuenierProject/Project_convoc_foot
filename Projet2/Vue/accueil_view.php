@@ -1,6 +1,10 @@
 <?php $titre = 'Accueil'; ?>
 
 <?php ob_start(); ?>
+	
+<?php $head = ob_get_clean(); ?>
+
+<?php ob_start(); ?>
 	<a id='ici' href="index.php">ACCUEIL</a>
 	<a href="index.php?action=convocation">CONVOCATION</a>
 	<a href='index.php?action=effectif'>EFFECTIF</a>
