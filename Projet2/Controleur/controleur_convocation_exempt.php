@@ -6,9 +6,11 @@ try{
 	$q=$_GET["q"];
 
 	$exempt=recupExempt($q);
+	reinitialiseexempt();
 	$rep1="";
 	while($donnees = $exempt->fetch())
 	{
+		ajouterexempt($donnees['prenom_nom']);
 		$rep1.="<tr><td>";
 		$rep1.=$donnees['prenom_nom'];
 		$rep1.="</td></tr>";

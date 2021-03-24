@@ -191,11 +191,66 @@ function recupNonlic($date){
 	return $matchs;
 }
 
+function connex($nom,$mdp){
+	$db = getdb();
+	$username = mysqli_real_escape_string($db,htmlspecialchars($nom)); 
+	$password = mysqli_real_escape_string($db,htmlspecialchars($mdp));
+	$requete="SELECT count(*) FROM connect where nom_utilisateur = '".$username."' and mdp= '".$password."'";
+	$exec_requete = mysqli_query($db,$requete);
+        $reponse = mysqli_fetch_array($exec_requete);
+	$count = $reponse['count(*)'];
+	if($count!=0) // nom d'utilisateur et mot de passe correctes
+        {
+           return $username;
+        }
+        else
+        {
+          return null;
+        }
+	mysqli_close($db); 
+}
+
+function reinitialiseexempt(){
+	$bdd = getBdd();
+	$matchs= $bdd->prepare('DELETE FROM exempt');
+	$matchs->execute();
+}
+
+function ajouterexempt($nom){
+	$bdd = getBdd();
+	$sth= $bdd->prepare('INSERT INTO exempt (prenom_nom) VALUES(:nom)');
+	$sth->bindParam(':nom',$nom);
+	$sth->execute();
+}
+
+function creeroption(){
+	$bdd = getBdd();
+	$sth= $bdd->query('Select * from exempt');
+	return $sth;
+}
+
+function supprimerexempt($nom){
+	$bdd = getBdd();
+	$sth= $bdd->prepare('Delete From exempt where prenom_nom="'.$nom.'"');
+	$sth->execute();
+}
+
+
 // Effectue la connexion à la BDD
 // Instancie et renvoie l'objet PDO associé
 function getBdd() {
     $bdd = new PDO('mysql:host=localhost;dbname=projet;charset=utf8', 'etudiant', 'etudiant', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     return $bdd;
+}
+
+function getdb() {
+	$db_username = 'etudiant';
+	$db_password = 'etudiant';
+	$db_name     = 'projet';
+	$db_host     = 'localhost';
+	$db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
+           or die('could not connect to database');
+	return $db;
 }
 
 

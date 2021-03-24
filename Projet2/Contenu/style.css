@@ -110,3 +110,29 @@ th{
 #tab {
         width:100%;
 }
+
+#connect {
+	text-decoration:none;
+	font-size: 100%;
+	color: #DE9E00;
+}
+#deconnexion{
+	font-size: 100%;
+}
+
+/* connexion */
+#popup{
+	margin: 10% auto;
+	width : 30%;
+	background-color: rgb(243, 243, 243);
+	padding: 1em;
+	border-radius: 5px;
+}
+#annuler{
+	margin-left: 50%;
+}
+h1{
+	text-align:center;
+}
+
+

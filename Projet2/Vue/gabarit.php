@@ -17,7 +17,6 @@
 		<img id="logo" alt="" src="img/logo.png" />
 		</a>
 		<?= $entete ?>
-		<a id="connexion" href="Vue/connexion_view.php">S'identifier</a>
 	</nav>
 	<br/>
             <div id="contenu">

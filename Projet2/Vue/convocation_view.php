@@ -7,9 +7,21 @@
 <?php ob_start(); ?>
 	<a href="index.php">ACCUEIL</a>
 	<a id='ici' href="index.php?action=convocation">CONVOCATION</a>
-	<a href='index.php?action=effectif'>EFFECTIF</a>
-	<a href='index.php?action=absences'>ABSENCES</a>
-	<a href='index.php?action=matchs'>MATCHS</a>
+	<?php 
+	if(isset($_SESSION["username"])){
+			echo"<a href='index.php?action=effectif'>EFFECTIF</a>";
+			echo"<a href='index.php?action=absences'>ABSENCES</a>";
+			echo"<a href='index.php?action=matchs'>MATCHS</a>";
+			$user = $_SESSION['username'];
+			echo "<a id='connect'>Bonjour $user</a>";
+			echo  "<a id='deconnexion' href='index.php?deconnexion=true'>Déconnexion</a>";
+		}else{
+			echo"<a>EFFECTIF</a>";
+			echo"<a>ABSENCES</a>";
+			echo"<a>MATCHS</a>";
+			echo "<a id='connexion' href='index.php?action=connexion'>S'identifier</a>";
+		}
+		?>
 <?php $entete = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
@@ -69,90 +81,15 @@
 			<th>SENIORS_B</th>
 			<th>SENIORS_C</th>
 		</tr>
-		<tr>
-			<th class='number'>1 </th>
-			<td><select id="ja1" onclick="recupjoueur(this.id)"> </select></td>
-			<td><select id="jb1" onclick="recupjoueur(this.id)"> </select></td>
-			<td><select id="jc1" onclick="recupjoueur(this.id)"> </select></td>
-		</tr>
-		<tr>
-			<th class='number'>2 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>3 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>4 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>5 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>6 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>7 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>8 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>9 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>10 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>11 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>12 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>13 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
-		<tr>
-			<th class='number'>14 </th>
-			<td>...</td>
-			<td>...</td>
-			<td>...</td>
-		</tr>
+		<?php 
+        for ($comptequipe=1;$comptequipe<=14;$comptequipe++):?>
+            <tr>
+                <th class='number'><?=$comptequipe ?></th>
+                <td><select class="opt" id="ja<?=$comptequipe?>" onchange="modifjoueur(this.value,this.id)"> </select></td>
+                <td><select class="opt" id="jb<?=$comptequipe?>" onchange="modifjoueur(this.value,this.id)"> </select></td>
+                <td><select class="opt" id="jc<?=$comptequipe?>" onchange="modifjoueur(this.value,this.id)"> </select></td>
+            </tr>
+        <?php endfor;?>
 	</table>
 	</div>
 	<div id=droite_3>

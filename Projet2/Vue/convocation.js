@@ -5,6 +5,7 @@ function change(str,str2){
 	blesse(str);
 	suspendu(str);
 	nonlicence(str);
+	recupjoueur();
 }
 function date(str,str2){
 	if (str==null)
@@ -178,8 +179,54 @@ function nonlicence(str){
 		xmlhttp.open("GET","Controleur/controleur_convocation_nonlic.php?q="+str,false);
 		xmlhttp.send();
 }
-function recupjoueur(str){
-	var test= document.getElementById("table1");
+function recupjoueur(){
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				for (let i=1; i<=14; i++){
+					let ident="ja"+i; 
+					document.getElementById(ident).innerHTML= xmlhttp.responseText;
+					ident="jb"+i; 
+					document.getElementById(ident).innerHTML= xmlhttp.responseText;
+					ident="jc"+i; 
+					document.getElementById(ident).innerHTML= xmlhttp.responseText;
+				}
+			}
+		}
+		xmlhttp.open("GET","Controleur/controleur_exempt.php",true);
+		xmlhttp.send();
+}
+function modifjoueur(val,ident){
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				document.getElementById(ident).innerHTML=xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET","Controleur/controleur_exempt.php?q="+val,true);
+		xmlhttp.send();
+}
+
+	
+	/*var test= document.getElementById("table1");
 	var test2=test.querySelectorAll("td");
 	var test3=[];
 	for (let element of Array.from(test2)) {
@@ -190,12 +237,12 @@ function recupjoueur(str){
 	/*var length = select.options.length; 
 	for (i = 0; i < length; i++) { 
 		select.options[i] = null; 
-	}*/
-	$("#ja1").empty();
+	}
+	//$("#ja1").empty();
 	select.options[select.options.length] = new Option ("");
 	for (let element2 of test3){
 		//option+="<option>"+element2+"</option>";
 		select.options[select.options.length] = new Option (element2);
 	}
-	//select.innerHTML=option;
-}
+	//select.innerHTML=option;*/
+//}

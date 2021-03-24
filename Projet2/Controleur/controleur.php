@@ -15,6 +15,10 @@ function convocation() {
 	require'Vue/convocation_view.php';
 }
 
+function connexion() {	
+	require'Vue/connexion_view.php';
+}
+
 function absences() {
 	//$joueursAbs=getJAbsent();
 	$premJ=getJprem();	

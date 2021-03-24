@@ -7,9 +7,21 @@
 <?php ob_start(); ?>
 	<a href="index.php">ACCUEIL</a>
 	<a href="index.php?action=convocation">CONVOCATION</a>
-	<a href='index.php?action=effectif'>EFFECTIF</a>
-	<a href='index.php?action=absences'>ABSENCES</a>
-	<a id='ici' href='index.php?action=matchs'>MATCHS</a>
+	<?php 
+	if(isset($_SESSION['username'])){
+			echo"<a href='index.php?action=effectif'>EFFECTIF</a>";
+			echo"<a href='index.php?action=absences'>ABSENCES</a>";
+			echo"<a id='ici' href='index.php?action=matchs'>MATCHS</a>";
+			$user = $_SESSION['username'];
+			echo "<a id='connect'>Bonjour $user</a>";
+			echo  "<a id='deconnexion' href='index.php?deconnexion=true'>Déconnexion</a>";
+		}else{
+			echo"<a>EFFECTIF</a>";
+			echo"<a>ABSENCES</a>";
+			echo"<a id='ici'>MATCHS</a>";
+			echo "<a id='connexion' href='index.php?action=connexion'>S'identifier</a>";
+		}
+		?>
 <?php $entete = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
@@ -47,6 +59,7 @@
 	<?php endforeach;?>
 	</table>
 	</div>
+	<?php if((isset($_SESSION['username'])) AND ($_SESSION['username']=='secretaire')) : ?>
 	<div id="droite_2">
 	<form action="index.php?action=matchs&amp;id=1" method="post">
 	<fieldset>
@@ -162,6 +175,7 @@
         </fieldset>
 	</form>
 	</div>
+	<?php endif; ?>
 </div>
 
 <?php $contenu = ob_get_clean(); ?>
