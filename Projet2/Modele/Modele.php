@@ -167,6 +167,12 @@ function recupExempt($date){
 	return $matchs;
 }
 
+function recupTableExempt(){
+	$bdd = getBdd();
+	$matchs= $bdd->query("SELECT prenom_nom FROM exempt");
+	return $matchs;
+}
+
 function recupAbsent($date){
 	$bdd = getBdd();
 	$matchs= $bdd->query("SELECT prenom_nom FROM absences WHERE date='".$date."' AND motif='A'");
@@ -223,16 +229,36 @@ function ajouterexempt($nom){
 	$sth->execute();
 }
 
-function creeroption(){
-	$bdd = getBdd();
-	$sth= $bdd->query('Select * from exempt');
-	return $sth;
-}
-
 function supprimerexempt($nom){
 	$bdd = getBdd();
 	$sth= $bdd->prepare('Delete From exempt where prenom_nom="'.$nom.'"');
 	$sth->execute();
+}
+
+function ajouterequipe($id,$nom){
+	$bdd = getBdd();
+	$sth= $bdd->prepare('INSERT INTO equipe (id, prenom_nom) VALUES(:id,:nom)');
+	$sth->bindParam(':id',$id);	
+	$sth->bindParam(':nom',$nom);
+	$sth->execute();
+}
+
+function recupTableEquipe($id){
+	$bdd = getBdd();
+	$matchs= $bdd->query('SELECT * FROM equipe where id="'.$id.'"');
+	return $matchs;
+}
+
+function supprimerequipe($nom){
+	$bdd = getBdd();
+	$sth= $bdd->prepare('Delete From equipe where prenom_nom="'.$nom.'"');
+	$sth->execute();
+}
+
+function reinitialiseequipe(){
+	$bdd = getBdd();
+	$matchs= $bdd->prepare('DELETE FROM equipe');
+	$matchs->execute();
 }
 
 

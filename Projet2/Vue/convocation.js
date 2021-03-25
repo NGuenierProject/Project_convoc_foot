@@ -7,6 +7,12 @@ function change(str,str2){
 	nonlicence(str);
 	recupjoueur();
 }
+
+function change2(str,str2){
+	modifjoueur(str,str2);
+	exempt(str);
+}
+
 function date(str,str2){
 	if (str==null)
 		{
@@ -221,7 +227,7 @@ function modifjoueur(val,ident){
 				document.getElementById(ident).innerHTML=xmlhttp.responseText;
 			}
 		}
-		xmlhttp.open("GET","Controleur/controleur_exempt.php?q="+val,true);
+		xmlhttp.open("GET","Controleur/controleur_exempt.php?q="+val+"&r="+ident,false);
 		xmlhttp.send();
 }
 

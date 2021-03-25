@@ -5,7 +5,13 @@ require '../Modele/Modele.php';
 try{
 	$q=$_GET["q"];
 	$r=$_GET["r"];
-
+	$exempt=recupExempt($q);
+	reinitialiseexempt();
+	reinitialiseequipe();
+	while($donnees = $exempt->fetch())
+	{
+		ajouterexempt($donnees['prenom_nom']);
+	}
 	$reponse1=recupValMatchs1($q,$r);
 	
 	if($donnees = $reponse1->fetch()){

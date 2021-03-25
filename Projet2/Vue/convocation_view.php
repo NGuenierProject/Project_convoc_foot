@@ -85,9 +85,9 @@
         for ($comptequipe=1;$comptequipe<=14;$comptequipe++):?>
             <tr>
                 <th class='number'><?=$comptequipe ?></th>
-                <td><select class="opt" id="ja<?=$comptequipe?>" onchange="modifjoueur(this.value,this.id)"> </select></td>
-                <td><select class="opt" id="jb<?=$comptequipe?>" onchange="modifjoueur(this.value,this.id)"> </select></td>
-                <td><select class="opt" id="jc<?=$comptequipe?>" onchange="modifjoueur(this.value,this.id)"> </select></td>
+                <td><select class="opt" id="ja<?=$comptequipe?>" onchange="change2(this.value,this.id)"> </select></td>
+                <td><select class="opt" id="jb<?=$comptequipe?>" onchange="change2(this.value,this.id)"> </select></td>
+                <td><select class="opt" id="jc<?=$comptequipe?>" onchange="change2(this.value,this.id)"> </select></td>
             </tr>
         <?php endfor;?>
 	</table>
